@@ -22,10 +22,35 @@ namespace CarRental
             car3.ShowFullInfo();
             Console.WriteLine();
 
-            // ---------- Exercise 2 demo: rental and payment ----------
+            // Step 1: show the cars and let the user choose one
+            Car[] cars = { car1, car2, car3 };
 
-            // Step 1: the car being rented is car1 (Toyota Corolla, 45.00 per day)
-            Car rentalCar = car1;
+            Console.WriteLine("Available cars:");
+            for (int i = 0; i < cars.Length; i++)
+            {
+                Console.WriteLine($"{i + 1} = {cars[i].Make} {cars[i].Model} ({cars[i].RegistrationNumber}), £{cars[i].DailyRate:F2} per day");
+            }
+
+            // Keep asking until the user types 1, 2 or 3
+            int carChoice = 0;
+            bool carValid = false;
+            while (!carValid)
+            {
+                Console.Write("Choose a car (1 to 3): ");
+                string carText = Console.ReadLine();
+
+                if (int.TryParse(carText, out carChoice) && carChoice >= 1 && carChoice <= 3)
+                {
+                    carValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please type 1, 2 or 3.");
+                }
+            }
+
+            // Lists start counting at 0, so choice 1 is position 0
+            Car rentalCar = cars[carChoice - 1];
 
             // Step 2: ask for the number of days, and keep asking until it is valid
             int days = 0;
